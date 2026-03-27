@@ -7,18 +7,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatBottomSheet, MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { TaskCreateComponent } from '../task-create/task-create.component';
 import { AuthService } from '../../../services/auth.service';
-import { TaskService } from '../../../services/task.service';
+import { TaskListService } from '../../../services/task-list.service';
+import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
+  providers:[TaskListService],
   imports: [ 
     MatToolbarModule,
     CommonModule,
     MatIconModule,
     MatButtonModule,
-    MatBottomSheetModule],
+    MatBottomSheetModule,
+    HttpClientModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
@@ -27,18 +30,14 @@ export class TaskListComponent {
 
   private authservice = inject(AuthService);
 
-  private tasklistService = inject(TaskService);
+  private tasklistService = inject(TaskListService);
 
   tasklist: TaskList[] = [];
 
   private _bottomSheet = inject(MatBottomSheet);
 
   constructor() {
-    this.tasklistService.getItems().subscribe(
-      data => {
-        this.tasklist = data;
-      }
-    )
+    this.getAll();
   }
 
    async logOut(): Promise<void> {
@@ -56,36 +55,30 @@ export class TaskListComponent {
 
   markAsCompleted(item: TaskList) {
     item.completed = true;
-    // save the todo item in Firestore
-    this.tasklistService.updateItem(item.id, item).then(
-      data => {
-
-      }
-    ).catch(error => {
-      console.error('Error:', error);
-    })
+     this.tasklistService.updateItem(item.id, item).subscribe(() => {
+        this.getAll();
+      })
   }
 
   markAsInCompleted(item: TaskList) {
     item.completed = false;
-    // save the todo item in Firestore
-    this.tasklistService.updateItem(item.id, item).then(
-      data => {
-
-      }
-    ).catch(error => {
-      console.error('Error:', error);
-    })
+     this.tasklistService.updateItem(item.id, item).subscribe(() => {
+        this.getAll();
+      })
   }
 
   deleteTodo(item: TaskList) {
-    // delete item from firestore
-    this.tasklistService.deleteItem(item.id).then(
-      data => {
+    this.tasklistService.deleteItem(item.id).subscribe(() => {
+        this.getAll();
+      })
+  }
 
+  //get All
+  getAll(){
+      this.tasklistService.getItems().subscribe(
+      data => {
+        this.tasklist = data;
       }
-    ).catch(error => {
-      console.error('Error:', error);
-    })
+    )
   }
 }
