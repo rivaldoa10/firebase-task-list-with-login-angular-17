@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TaskList } from '../../../models/task-list.model'
@@ -8,36 +8,37 @@ import { MatBottomSheet, MatBottomSheetModule } from '@angular/material/bottom-s
 import { TaskCreateComponent } from '../task-create/task-create.component';
 import { AuthService } from '../../../services/auth.service';
 import { TaskListService } from '../../../services/task-list.service';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  providers:[TaskListService],
   imports: [ 
     MatToolbarModule,
     CommonModule,
     MatIconModule,
     MatButtonModule,
-    MatBottomSheetModule,
-    HttpClientModule],
+    MatBottomSheetModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
-export class TaskListComponent {
+export class TaskListComponent implements OnInit{
   private _router = inject(Router);
 
   private authservice = inject(AuthService);
 
-  private tasklistService = inject(TaskListService);
+  //private tasklistService = inject(TaskListService);
 
   tasklist: TaskList[] = [];
 
   private _bottomSheet = inject(MatBottomSheet);
 
-  constructor() {
-    this.getAll();
+  tasklist$ = this.tasklistService.items$;
+
+  constructor(public tasklistService: TaskListService) {}
+
+  ngOnInit() {
+    this.tasklistService.getItems(); 
   }
 
    async logOut(): Promise<void> {
@@ -53,32 +54,17 @@ export class TaskListComponent {
     this._bottomSheet.open(TaskCreateComponent);
   }
 
-  markAsCompleted(item: TaskList) {
+   markAsCompleted(item: TaskList) {
     item.completed = true;
-     this.tasklistService.updateItem(item.id, item).subscribe(() => {
-        this.getAll();
-      })
+    this.tasklistService.updateItem(item.id, item).subscribe();
   }
 
   markAsInCompleted(item: TaskList) {
     item.completed = false;
-     this.tasklistService.updateItem(item.id, item).subscribe(() => {
-        this.getAll();
-      })
+    this.tasklistService.updateItem(item.id, item).subscribe();
   }
 
-  deleteTodo(item: TaskList) {
-    this.tasklistService.deleteItem(item.id).subscribe(() => {
-        this.getAll();
-      })
-  }
-
-  //get All
-  getAll(){
-      this.tasklistService.getItems().subscribe(
-      data => {
-        this.tasklist = data;
-      }
-    )
+ deleteTodo(item: TaskList) {
+    this.tasklistService.deleteItem(item.id).subscribe();
   }
 }

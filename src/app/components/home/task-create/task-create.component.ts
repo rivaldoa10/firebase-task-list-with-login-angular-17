@@ -11,13 +11,12 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { TaskList } from '../../../models/task-list.model';
 import { TaskListService } from '../../../services/task-list.service';
-import { HttpClientModule } from '@angular/common/http';
 import { TaskListAdd } from '../../../DTO/TaskListAddDTO.model';
 
 @Component({
   selector: 'app-task-create',
   standalone: true,
-  providers: [provideNativeDateAdapter(), TaskListService],
+  providers: [provideNativeDateAdapter()],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,9 +26,7 @@ import { TaskListAdd } from '../../../DTO/TaskListAddDTO.model';
     MatFormFieldModule,
     MatDatepickerModule,
     MatIconModule,
-    MatButtonModule,
-    HttpClientModule   
-  ],
+    MatButtonModule],
   templateUrl: './task-create.component.html',
   styleUrl: './task-create.component.css'
 })
@@ -65,23 +62,12 @@ export class TaskCreateComponent {
 
     // post the data to firestore
     this.tasklistService.createItem(taskList).subscribe({
-      next: () => {
-        console.log('saved data');
-        this.getAll();
-        this._bottomSheetRef.dismiss();
-      },
-      error: err => {
-       console.error(err);
-      }
-    });
-   }
+    next: () => {
+      console.log('saved data');
+      this._bottomSheetRef.dismiss();
+    },
+    error: err => console.error(err)
+  });
 
-    //get All
-  getAll(){
-      this.tasklistService.getItems().subscribe(
-      data => {
-        this.tasklist = data;
-      }
-    )
-  }
+   }
 }

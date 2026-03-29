@@ -10,12 +10,12 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideAnimationsAsync(), 
     provideFirebaseApp(() => initializeApp({
-      "projectId": "your-project-id",
-      "appId": "your-app-id",
-      "storageBucket": "your-storage-bucket",
-      "apiKey": "your-api-key",
-      "authDomain": "your-api-key",
-      "messagingSenderId": "your-messaging-sender-id"
+      "projectId":"task-list-login",
+      "appId":"1:127233459285:web:f215549189c9d5680cc0dc",
+      "storageBucket":"task-list-login.firebasestorage.app",
+      "apiKey":"AIzaSyD-m9ksUZiFWXzrXA7u3-6VTyL17lrIIdU",
+      "authDomain":"task-list-login.firebaseapp.com",
+      "messagingSenderId":"127233459285"
     
   })), provideAuth(() => getAuth()), provideFirestore(() => getFirestore())]
 };
