@@ -1,4 +1,5 @@
 import { Injectable, inject } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import {
   Auth,
   AuthProvider,
@@ -25,6 +26,18 @@ export class AuthService {
 
   readonly authState$ = authState(this.auth);
 
+  private userIdSource = new BehaviorSubject<string | null>(null);
+  userId$ = this.userIdSource.asObservable();
+
+  setUserId(id: string) {
+    this.userIdSource.next(id);
+  }
+
+  getUserId(): string  {
+    return this.userIdSource.value || '';
+  }
+
+
   signUpWithEmailAndPassword(credential: Credential): Promise<UserCredential> {
     return createUserWithEmailAndPassword(
       this.auth,
@@ -38,7 +51,12 @@ export class AuthService {
       this.auth,
       credential.email,
       credential.password
-    );
+    ).then(userCredential => {
+    const uid = userCredential.user?.uid;
+    this.setUserId(uid);
+    return userCredential;
+  });
+;
   }
 
   logOut(): Promise<void> {

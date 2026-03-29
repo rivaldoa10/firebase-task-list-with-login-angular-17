@@ -4,4 +4,5 @@ export interface TaskList {
     completed: boolean;
     dueDate: Date;
     priority: "High" | "Medium" | "Low";
+    userId: string;
 }

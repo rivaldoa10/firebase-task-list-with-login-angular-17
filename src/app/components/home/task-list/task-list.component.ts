@@ -35,12 +35,15 @@ export class TaskListComponent implements OnInit{
 
   private _bottomSheet = inject(MatBottomSheet);
 
+  userId: string | '' = '';
+
   tasklist$ = this.tasklistService.items$;
 
   constructor(public tasklistService: TaskListService) {}
 
   ngOnInit() {
-    this.getAll();
+    this.userId = this.authservice.getUserId();
+    this.getAll(this.userId );
   }
 
    async logOut(): Promise<void> {
@@ -52,12 +55,16 @@ export class TaskListComponent implements OnInit{
     }
    }
 
-  getAll(){
-    this.tasklistService.getItems(); 
+  getAll(userId?: string){
+    if (userId  === undefined || userId === '') {
+      userId  = this.authservice.getUserId();
+    }
+    this.tasklistService.getItems(userId); 
   }
-  
+
   getAllByStatus(status:string){
-    this.tasklistService.getItemByStatus(status);
+    this.userId =  this.authservice.getUserId();
+    this.tasklistService.getItemByStatus(status, this.userId);
   }
   
   addNewTodo() {

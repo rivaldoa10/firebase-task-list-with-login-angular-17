@@ -3,4 +3,5 @@ export interface TaskListAdd {
     completed: boolean;
     dueDate: Date;
     priority: "High" | "Medium" | "Low";
+    userId: string;
 }

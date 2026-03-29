@@ -12,6 +12,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import { TaskList } from '../../../models/task-list.model';
 import { TaskListService } from '../../../services/task-list.service';
 import { TaskListAdd } from '../../../DTO/TaskListAddDTO.model';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-task-create',
@@ -37,6 +38,10 @@ export class TaskCreateComponent {
   tasklist: TaskList[] = [];
   todoForm!: FormGroup;
 
+  userId: string  = '';
+
+  private authService = inject(AuthService);
+
   constructor() {
     this.initForm();
   }
@@ -54,22 +59,28 @@ export class TaskCreateComponent {
       return;
     }
 
+    this.userId = this.authService.getUserId();
+
     const taskList : TaskListAdd = { 
       title:this.todoForm.value.title, 
-      completed:this.todoForm.value.completed, 
+      completed:this.todoForm.value.completed || false, 
       dueDate: this.todoForm.value.dueDate, 
-      priority: this.todoForm.value.priority};
+      priority: this.todoForm.value.priority,
+      userId: this.userId || ''
+    };
 
     // post the data to firestore
     this.tasklistService.createItem(taskList).subscribe({
     next: () => {
       console.log('saved data');
       this._bottomSheetRef.dismiss();
+      
+      this.userId = this.authService.getUserId();
 
       if (this.tasklistService.currentFilter === 'all') {
-        this.tasklistService.getItems();
+        this.tasklistService.getItems(this.userId);
       } else {
-        this.tasklistService.getItemByStatus(this.tasklistService.currentFilter);
+        this.tasklistService.getItemByStatus(this.tasklistService.currentFilter, this.userId);
       }
 
     },

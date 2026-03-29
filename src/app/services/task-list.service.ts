@@ -18,15 +18,15 @@ export class TaskListService {
   constructor(private http: HttpClient) { }
 
   // get task-list
-  getItems():void{
+  getItems(userId?:string):void{
      this.currentFilter = 'all';
-     this.http.get<TaskList[]>(this.url+"getAll/").subscribe(data => this.itemsSource.next(data));
+     this.http.get<TaskList[]>(`${this.url}getAll/${userId}`).subscribe(data => this.itemsSource.next(data));
   }
 
   //get task-list by status
-  getItemByStatus(status:string){
+  getItemByStatus(status:string, userId:string){
     this.currentFilter = status.toLowerCase() as 'true' | 'false';
-    this.http.get<TaskList[]>(this.url+"getAllByStatus/?status="+status).subscribe(data => this.itemsSource.next(data));
+    this.http.get<TaskList[]>(this.url+"getAllByStatus/?status="+status+"&userId="+userId).subscribe(data => this.itemsSource.next(data));
   }
 
  // create new task
