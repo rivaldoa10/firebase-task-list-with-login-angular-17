@@ -65,6 +65,13 @@ export class TaskCreateComponent {
     next: () => {
       console.log('saved data');
       this._bottomSheetRef.dismiss();
+
+      if (this.tasklistService.currentFilter === 'all') {
+        this.tasklistService.getItems();
+      } else {
+        this.tasklistService.getItemByStatus(this.tasklistService.currentFilter);
+      }
+
     },
     error: err => console.error(err)
   });

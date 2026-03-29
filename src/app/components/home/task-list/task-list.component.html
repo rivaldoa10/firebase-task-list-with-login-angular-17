@@ -6,6 +6,13 @@
 
 <div class="container position-relative">
     <div class="todo-list-container mat-elevation-z3 p-3">
+        <div class="text-center">
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button (click)="getAll()">All</mat-radio-button>
+                <mat-radio-button (click)="getAllByStatus('False')">Pending</mat-radio-button>
+                <mat-radio-button (click)="getAllByStatus('True')">Complete</mat-radio-button>
+            </mat-radio-group>
+        </div>
         <div class="todo-item-container mat-elevation-z2 p-2 d-flex gap-2" *ngFor="let item of tasklistService.items$ | async">
             <mat-icon *ngIf="!item.completed" role="button"
                 (click)="markAsCompleted(item)">radio_button_unchecked</mat-icon>

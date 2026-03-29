@@ -25,6 +25,10 @@ mat-toolbar {
     right: 45px;
 }
 
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 16px;
+}
+
 ::ng-deep .mat-bottom-sheet-container-large,
 ::ng-deep .mat-bottom-sheet-container-xlarge,
 ::ng-deep .mat-bottom-sheet-container-medium {

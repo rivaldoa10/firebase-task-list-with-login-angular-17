@@ -9,16 +9,24 @@ import { TaskListAdd } from '../DTO/TaskListAddDTO.model';
 })
 export class TaskListService {
 
-   private url: string = "http://localhost:3000/";
+  private url: string = "http://localhost:3000/";
   private itemsSource = new BehaviorSubject<TaskList[]>([]);
   items$ = this.itemsSource.asObservable();
 
+  currentFilter: 'all' | 'true' | 'false' = 'all';
 
   constructor(private http: HttpClient) { }
 
   // get task-list
   getItems():void{
+     this.currentFilter = 'all';
      this.http.get<TaskList[]>(this.url+"getAll/").subscribe(data => this.itemsSource.next(data));
+  }
+
+  //get task-list by status
+  getItemByStatus(status:string){
+    this.currentFilter = status.toLowerCase() as 'true' | 'false';
+    this.http.get<TaskList[]>(this.url+"getAllByStatus/?status="+status).subscribe(data => this.itemsSource.next(data));
   }
 
  // create new task

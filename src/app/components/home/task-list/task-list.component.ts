@@ -5,6 +5,7 @@ import { TaskList } from '../../../models/task-list.model'
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBottomSheet, MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import {MatRadioModule} from '@angular/material/radio';
 import { TaskCreateComponent } from '../task-create/task-create.component';
 import { AuthService } from '../../../services/auth.service';
 import { TaskListService } from '../../../services/task-list.service';
@@ -18,7 +19,8 @@ import { Router } from '@angular/router';
     CommonModule,
     MatIconModule,
     MatButtonModule,
-    MatBottomSheetModule],
+    MatBottomSheetModule,
+    MatRadioModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
@@ -38,7 +40,7 @@ export class TaskListComponent implements OnInit{
   constructor(public tasklistService: TaskListService) {}
 
   ngOnInit() {
-    this.tasklistService.getItems(); 
+    this.getAll();
   }
 
    async logOut(): Promise<void> {
@@ -50,6 +52,14 @@ export class TaskListComponent implements OnInit{
     }
    }
 
+  getAll(){
+    this.tasklistService.getItems(); 
+  }
+  
+  getAllByStatus(status:string){
+    this.tasklistService.getItemByStatus(status);
+  }
+  
   addNewTodo() {
     this._bottomSheet.open(TaskCreateComponent);
   }
