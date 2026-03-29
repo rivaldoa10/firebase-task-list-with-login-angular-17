@@ -15,23 +15,37 @@ Podra iniciar session con su cuenta de Google, Git o crear una cuenta.
 <img width="618" height="854" alt="image" src="https://github.com/user-attachments/assets/87174593-c5d3-40c8-9fe8-1d6f04eb24b6" />
 
 Al crear la cuenta o inciar session automaticamente lo enviara al dashboard de Task List. 
-<img width="1906" height="942" alt="image" src="https://github.com/user-attachments/assets/c0759ce6-59da-47ee-a3f7-4a4b44b14916" />
+<img width="1915" height="939" alt="image" src="https://github.com/user-attachments/assets/4236fa05-4dda-4fdf-add6-a6a47ae6f516" />
+
 
 En el dashboard visualizara dos botones:
 1. Logout para salir o cerrar su session.
 2. Boton con icono de + para agregar las tareas.
+3. Filtro por estado de la tarea.
 
 Al dar click el boton de + se levantara un modal o pop-up donde llenara los campos requeridos para la tarea.
 <img width="1333" height="154" alt="image" src="https://github.com/user-attachments/assets/1c61eb79-5fee-4649-adc1-8e7a7b0169ce" />
 
-Para guardar la tarea tiene que darle click al boton del chek y automaticamente se agregara al dashboard.
-<img width="1901" height="922" alt="image" src="https://github.com/user-attachments/assets/e2f19a13-a7ae-47ac-a7ea-2a2761197430" />
+Para guardar la tarea tiene que darle click al boton del check y automaticamente se agregara al dashboard.
+<img width="1917" height="945" alt="image" src="https://github.com/user-attachments/assets/70b81e49-ccfe-440a-8b69-6640c3c66d7f" />
 
 Por defecto las tareas se crean como pendiente si desea cambiarlo a completado debera seleccionar la tarea y aplicara un tachado sobre el texto para 
 mostrar visualmente el cambio a completado si desea cambiarlo a pendiente deseleccione la tarea.
-<img width="1311" height="131" alt="image" src="https://github.com/user-attachments/assets/ff488a16-517a-4869-a842-810dd4e107bd" />
+<img width="1294" height="181" alt="image" src="https://github.com/user-attachments/assets/3ac09c38-f384-4f09-9e4e-362e5c6e1b47" />
+
+Si agrega una tarea teniendo activado el filtro de Complete no vera refljada visualmente la tarea por el filtro seleccionado, si desea visualizarla debe cambiar el filtro a Pending o All.
+
+Filtro All
+<img width="1292" height="256" alt="image" src="https://github.com/user-attachments/assets/2ada26c1-69c0-41ac-9b9a-cfbd3595fcb1" />
+
+Filtro Pending
+<img width="1292" height="186" alt="image" src="https://github.com/user-attachments/assets/ce0c5688-d228-49cd-b640-0e35e3da763c" />
+
+Filtro complete
+<img width="1294" height="168" alt="image" src="https://github.com/user-attachments/assets/a54b971a-f186-4153-924b-7e1efdaaa6a1" />
 
 Para eliminar cualquier tarea agregada de click en el icono de la x que aparece en la parte derecha de la tarea.
+<img width="1264" height="67" alt="image" src="https://github.com/user-attachments/assets/67801073-4f6a-4803-a7ae-485a2fb0ddef" />
 
 ## Descargar el proyecto y ejecutelo localmente
 
