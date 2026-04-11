@@ -4,11 +4,9 @@ Proyecto esta trabajado el Front en angular y el back con node + express teniend
 1. login haciendo uso firebase authentication implentado directamente en angular y consumido a traves de un servicio.
 2. lista de tareas se trabaja en el back con node + express y se guarda los datos en firestore. 
 
-En este enlace: https://task-list-login.web.app encontrara la primera version del proyecto donde se realizaba ambas funcionalidades pero sin usar el back de node + express, todo se realizaba en angular utilizando firebase authentication y firestore. 
-
 ## Manual de usuario
 
-Al acceder a la url lo primera que visualizara es la pagina de login.
+Pagina de login.
 <img width="756" height="759" alt="image" src="https://github.com/user-attachments/assets/b996de69-4d74-4743-ad08-31406c6eda13" />
 
 Podra iniciar session con su cuenta de Google, Git o crear una cuenta.
@@ -52,5 +50,6 @@ Para eliminar cualquier tarea agregada de click en el icono de la x que aparece 
 Si desea correr el proyecto localmente realice los siguiente.
 1. Descargue o clone el proyecto a su maquina
 2. En la carpeta raiz ejecute npm install para instalar todas las dependencias necesesarias
-3. Ejecute localmente el proyecto usando el comando ng serve -o 
+3. Sustituya los datos de configuracion app.config.ts por sus credenciales.
+4. Ejecute localmente el proyecto usando el comando ng serve -o 
 5. Descargue el proyecto localmente de node +  express y ejecutelo -> https://github.com/rivaldoa10/firebase-task-list-with-login-node-express
